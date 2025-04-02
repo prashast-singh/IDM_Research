@@ -6,8 +6,76 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1C60D3802D9D644300450AA7 /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3612D9D633C00450AA7 /* CareKit.framework */; };
+		1C60D3812D9D644300450AA7 /* CareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3612D9D633C00450AA7 /* CareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1C60D3822D9D644300450AA7 /* CareKitFHIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D36A2D9D635000450AA7 /* CareKitFHIR.framework */; };
+		1C60D3832D9D644300450AA7 /* CareKitFHIR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D36A2D9D635000450AA7 /* CareKitFHIR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1C60D3842D9D644300450AA7 /* CareKitStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3732D9D636800450AA7 /* CareKitStore.framework */; };
+		1C60D3852D9D644300450AA7 /* CareKitStore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3732D9D636800450AA7 /* CareKitStore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1C60D3862D9D644300450AA7 /* CareKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D37C2D9D638000450AA7 /* CareKitUI.framework */; };
+		1C60D3872D9D644300450AA7 /* CareKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D37C2D9D638000450AA7 /* CareKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F300CD790DE3C46806B47929 /* Pods_IDM_Research.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 262C6B0E21C11A5D90377184 /* Pods_IDM_Research.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1C60D3602D9D633C00450AA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C60D35B2D9D633C00450AA7 /* CareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8605A5BA1C4F04EC00DD65FF;
+			remoteInfo = CareKit;
+		};
+		1C60D3692D9D635000450AA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C60D3642D9D634F00450AA7 /* CareKitFHIR.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0396EF36233D187800C28FC0;
+			remoteInfo = CareKitFHIR;
+		};
+		1C60D3722D9D636800450AA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C60D36D2D9D636800450AA7 /* CareKitStore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E784B8F82232EED600736CA5;
+			remoteInfo = CareKitStore;
+		};
+		1C60D37B2D9D638000450AA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C60D3762D9D638000450AA7 /* CareKitUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5174225B224185290054E97C;
+			remoteInfo = CareKitUI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1C60D3882D9D644300450AA7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1C60D3872D9D644300450AA7 /* CareKitUI.framework in Embed Frameworks */,
+				1C60D3852D9D644300450AA7 /* CareKitStore.framework in Embed Frameworks */,
+				1C60D3812D9D644300450AA7 /* CareKit.framework in Embed Frameworks */,
+				1C60D3832D9D644300450AA7 /* CareKitFHIR.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1C60D34A2D9D627A00450AA7 /* IDM Research.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IDM Research.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C60D35B2D9D633C00450AA7 /* CareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKit.xcodeproj; path = "CareKit-main/CareKit/CareKit.xcodeproj"; sourceTree = "<group>"; };
+		1C60D3642D9D634F00450AA7 /* CareKitFHIR.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKitFHIR.xcodeproj; path = "CareKit-main/CareKitFHIR/CareKitFHIR.xcodeproj"; sourceTree = "<group>"; };
+		1C60D36D2D9D636800450AA7 /* CareKitStore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKitStore.xcodeproj; path = "CareKit-main/CareKitStore/CareKitStore.xcodeproj"; sourceTree = "<group>"; };
+		1C60D3762D9D638000450AA7 /* CareKitUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKitUI.xcodeproj; path = "CareKit-main/CareKitUI/CareKitUI.xcodeproj"; sourceTree = "<group>"; };
+		1C60D3892D9D655B00450AA7 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "ResearchKit-stable/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
+		262C6B0E21C11A5D90377184 /* Pods_IDM_Research.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IDM_Research.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		269423D3CD1A7B06E8861308 /* Pods-IDM Research.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IDM Research.release.xcconfig"; path = "Target Support Files/Pods-IDM Research/Pods-IDM Research.release.xcconfig"; sourceTree = "<group>"; };
+		C7035C01C992CECF2FAF23F9 /* Pods-IDM Research.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IDM Research.debug.xcconfig"; path = "Target Support Files/Pods-IDM Research/Pods-IDM Research.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +91,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C60D3862D9D644300450AA7 /* CareKitUI.framework in Frameworks */,
+				1C60D3842D9D644300450AA7 /* CareKitStore.framework in Frameworks */,
+				1C60D3802D9D644300450AA7 /* CareKit.framework in Frameworks */,
+				1C60D3822D9D644300450AA7 /* CareKitFHIR.framework in Frameworks */,
+				F300CD790DE3C46806B47929 /* Pods_IDM_Research.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,8 +105,15 @@
 		1C60D3412D9D627A00450AA7 = {
 			isa = PBXGroup;
 			children = (
+				1C60D3892D9D655B00450AA7 /* ResearchKit.xcodeproj */,
+				1C60D3762D9D638000450AA7 /* CareKitUI.xcodeproj */,
+				1C60D36D2D9D636800450AA7 /* CareKitStore.xcodeproj */,
+				1C60D3642D9D634F00450AA7 /* CareKitFHIR.xcodeproj */,
+				1C60D35B2D9D633C00450AA7 /* CareKit.xcodeproj */,
 				1C60D34C2D9D627A00450AA7 /* IDM Research */,
+				1C60D37F2D9D644300450AA7 /* Frameworks */,
 				1C60D34B2D9D627A00450AA7 /* Products */,
+				4BC0930CA75055A334B6DC5C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -45,6 +125,62 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1C60D35C2D9D633C00450AA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C60D3612D9D633C00450AA7 /* CareKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1C60D3652D9D634F00450AA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C60D36A2D9D635000450AA7 /* CareKitFHIR.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1C60D36E2D9D636800450AA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C60D3732D9D636800450AA7 /* CareKitStore.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1C60D3772D9D638000450AA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C60D37C2D9D638000450AA7 /* CareKitUI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1C60D37F2D9D644300450AA7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				262C6B0E21C11A5D90377184 /* Pods_IDM_Research.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1C60D38A2D9D655B00450AA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4BC0930CA75055A334B6DC5C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C7035C01C992CECF2FAF23F9 /* Pods-IDM Research.debug.xcconfig */,
+				269423D3CD1A7B06E8861308 /* Pods-IDM Research.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -52,9 +188,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C60D3582D9D627C00450AA7 /* Build configuration list for PBXNativeTarget "IDM Research" */;
 			buildPhases = (
+				E6F45ECC730DA5295164058A /* [CP] Check Pods Manifest.lock */,
 				1C60D3462D9D627A00450AA7 /* Sources */,
 				1C60D3472D9D627A00450AA7 /* Frameworks */,
 				1C60D3482D9D627A00450AA7 /* Resources */,
+				1C60D3882D9D644300450AA7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -64,8 +202,6 @@
 				1C60D34C2D9D627A00450AA7 /* IDM Research */,
 			);
 			name = "IDM Research";
-			packageProductDependencies = (
-			);
 			productName = "IDM Research";
 			productReference = 1C60D34A2D9D627A00450AA7 /* IDM Research.app */;
 			productType = "com.apple.product-type.application";
@@ -97,12 +233,65 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1C60D34B2D9D627A00450AA7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1C60D35C2D9D633C00450AA7 /* Products */;
+					ProjectRef = 1C60D35B2D9D633C00450AA7 /* CareKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 1C60D3652D9D634F00450AA7 /* Products */;
+					ProjectRef = 1C60D3642D9D634F00450AA7 /* CareKitFHIR.xcodeproj */;
+				},
+				{
+					ProductGroup = 1C60D36E2D9D636800450AA7 /* Products */;
+					ProjectRef = 1C60D36D2D9D636800450AA7 /* CareKitStore.xcodeproj */;
+				},
+				{
+					ProductGroup = 1C60D3772D9D638000450AA7 /* Products */;
+					ProjectRef = 1C60D3762D9D638000450AA7 /* CareKitUI.xcodeproj */;
+				},
+				{
+					ProductGroup = 1C60D38A2D9D655B00450AA7 /* Products */;
+					ProjectRef = 1C60D3892D9D655B00450AA7 /* ResearchKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1C60D3492D9D627A00450AA7 /* IDM Research */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1C60D3612D9D633C00450AA7 /* CareKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CareKit.framework;
+			remoteRef = 1C60D3602D9D633C00450AA7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1C60D36A2D9D635000450AA7 /* CareKitFHIR.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CareKitFHIR.framework;
+			remoteRef = 1C60D3692D9D635000450AA7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1C60D3732D9D636800450AA7 /* CareKitStore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CareKitStore.framework;
+			remoteRef = 1C60D3722D9D636800450AA7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1C60D37C2D9D638000450AA7 /* CareKitUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CareKitUI.framework;
+			remoteRef = 1C60D37B2D9D638000450AA7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1C60D3482D9D627A00450AA7 /* Resources */ = {
@@ -113,6 +302,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E6F45ECC730DA5295164058A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IDM Research-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1C60D3462D9D627A00450AA7 /* Sources */ = {
@@ -246,6 +460,7 @@
 		};
 		1C60D3592D9D627C00450AA7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7035C01C992CECF2FAF23F9 /* Pods-IDM Research.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -275,6 +490,7 @@
 		};
 		1C60D35A2D9D627C00450AA7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 269423D3CD1A7B06E8861308 /* Pods-IDM Research.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

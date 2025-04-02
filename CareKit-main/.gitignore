@@ -1,0 +1,32 @@
+# Xcode
+#
+# Xcode
+build/
+IDEWorkspaceChecks.plist
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+
+.DS_Store
+*.pyc
+*.xcscmblueprint
+
+# SPM
+.build/
+.swiftpm/xcode/*
+!.swiftpm/xcode/xcshareddata/
+
+# DocC
+.docc-build
