@@ -12,20 +12,53 @@
 //  Created by Prashast Singh on 22.04.25.
 //
 
+//
+//  ActiveTaskController.swift
+//  IDM Research
+//
+//  Created by Prashast Singh on 22.04.25.
+//
+
+//
+//  ActiveTaskController.swift
+//  IDM Research
+//
+//  Created by Prashast Singh on 22.04.25.
+//
+
 import SwiftUI
 import ResearchKit
 import ResearchKitUI
+import ResearchKitActiveTask
+import CoreData
+
 
 struct TaskView: UIViewControllerRepresentable {
     let task: ORKTask
     let onFinish: (ORKTaskFinishReason, ORKTaskResult?) -> Void
 
     func makeUIViewController(context: Context) -> ORKTaskViewController {
+        UIApplication.shared.isIdleTimerDisabled = true
         let vc = ORKTaskViewController(task: task, taskRun: nil)
         vc.delegate = context.coordinator
-        vc.modalPresentationStyle = .fullScreen
+
+        // 1) Pick (or create) a folder under Documents:
+        let docs = FileManager.default.urls(
+            for: .documentDirectory, in: .userDomainMask
+        ).first!
+        let outDir = docs.appendingPathComponent(task.identifier, isDirectory: true)
+        try? FileManager.default.createDirectory(
+            at: outDir,
+            withIntermediateDirectories: true,
+            attributes: nil
+        )
+
+        // 2) Assign it so RK can write its JSON recorder files there:
+        vc.outputDirectory = outDir
+
         return vc
     }
+
 
     func updateUIViewController(_ uiViewController: ORKTaskViewController, context: Context) {}
 
@@ -41,13 +74,22 @@ struct TaskView: UIViewControllerRepresentable {
         }
 
         func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskFinishReason, error: Error?) {
+            if let error = error {
+                   // Handle the error appropriately, maybe log or display an alert
+                   print("Task finished with error manual: \(error.localizedDescription)")
+               }
+            
             let result = taskViewController.result
-            taskViewController.dismiss(animated: true) {
+            UIApplication.shared.isIdleTimerDisabled = false
                 self.onFinish(reason, result)
-            }
+            
+            
         }
     }
 }
+
+
+
 
 func createPDF(from content: String, fileName: String) -> URL? {
     let pdfMetaData = [
@@ -65,11 +107,34 @@ func createPDF(from content: String, fileName: String) -> URL? {
 
     let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
     let data = renderer.pdfData { context in
+        var currentY: CGFloat = 20.0 // Start top margin
+
         context.beginPage()
+
         let attributes = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)
         ]
-        content.draw(in: pageRect.insetBy(dx: 20, dy: 20), withAttributes: attributes)
+
+        let contentWidth = pageRect.width - 40.0  // 20pt margin on each side
+        let text = content as NSString
+        let maxTextHeight = pageHeight - 40.0  // Account for top and bottom margins
+
+        let textSize = text.boundingRect(with: CGSize(width: contentWidth, height: maxTextHeight),
+                                         options: .usesLineFragmentOrigin,
+                                         attributes: attributes,
+                                         context: nil).size
+
+        if textSize.height > maxTextHeight {
+            let numberOfPages = Int(ceil(textSize.height / maxTextHeight))
+            for i in 0..<numberOfPages {
+                context.beginPage()
+                let currentContent = text.substring(with: NSRange(location: i * Int(maxTextHeight), length: Int(maxTextHeight)))
+                currentContent.draw(in: CGRect(x: 20, y: currentY, width: contentWidth, height: textSize.height))
+                currentY += textSize.height
+            }
+        } else {
+            content.draw(in: CGRect(x: 20, y: currentY, width: contentWidth, height: textSize.height), withAttributes: attributes)
+        }
     }
 
     let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -85,45 +150,85 @@ func createPDF(from content: String, fileName: String) -> URL? {
     }
 }
 
+
 func processResult(_ taskResult: ORKTaskResult) {
-    var formText = "Form Responses:\n"
-    var walkText = "Short Walk Results:\n"
+    var formText = "📝 Form Responses:\n"
+    var walkText = "🚶 Short Walk Data:\n"
 
-    for result in taskResult.results ?? [] {
-        if let stepResult = result as? ORKStepResult {
-            for item in stepResult.results ?? [] {
+    // Identify task type
+    let taskIdentifier = taskResult.identifier
+    let now = Date()
+    var walkSteps: Int? = nil
+    var kneeAngle: Double? = nil
 
-                if let choice = item as? ORKChoiceQuestionResult {
-                    let answer = choice.choiceAnswers?.compactMap { "\($0)" }.joined(separator: ", ") ?? "No answer"
-                    formText += "\(item.identifier): \(answer)\n"
+    for stepResult in taskResult.results ?? [] {
+        guard let stepResult = stepResult as? ORKStepResult else { continue }
+
+        for item in stepResult.results ?? [] {
+            switch item {
+            case let choice as ORKChoiceQuestionResult:
+                let answers = choice.choiceAnswers?.compactMap { "\($0)" }.joined(separator: ", ") ?? "No answer"
+                formText += "\(item.identifier): \(answers)\n"
+
+            case let text as ORKTextQuestionResult:
+                let answer = text.textAnswer ?? "No answer"
+                formText += "\(item.identifier): \(answer)\n"
+
+            case let numeric as ORKNumericQuestionResult:
+                let answer = numeric.numericAnswer?.stringValue ?? "No answer"
+                formText += "\(item.identifier): \(answer)\n"
+
+            case let date as ORKDateQuestionResult:
+                let answer = date.dateAnswer?.description ?? "No answer"
+                formText += "\(item.identifier): \(answer)\n"
+                
+            case let scale as ORKScaleQuestionResult:
+                let answer = scale.scaleAnswer?.description ?? "No answer"
+                formText += "\(item.identifier): \(answer)\n"
+                
+            case let timedWalk as ORKTimedWalkResult:
+                walkText += "\(item.identifier):\n"
+                walkText += "- Distance: \(timedWalk.distanceInMeters) m\n"
+                walkText += "- Duration: \(timedWalk.duration) s\n"
+                walkText += "- Time Limit: \(timedWalk.timeLimit) s\n"
+                // Try to extract steps from userInfo if available
+                if let steps = timedWalk.userInfo?["numberOfSteps"] as? Int {
+                    walkSteps = steps
                 }
 
-                if let scale = item as? ORKScaleQuestionResult {
-                    let value = scale.scaleAnswer?.stringValue ?? "No answer"
-                    formText += "\(item.identifier): \(value)\n"
-                }
+            case let file as ORKFileResult:
+                let filename = file.fileURL?.lastPathComponent ?? "Unknown file"
+                walkText += "\(item.identifier): File - \(filename)\n"
 
-                if let text = item as? ORKTextQuestionResult {
-                    let value = text.textAnswer ?? "No answer"
-                    formText += "\(item.identifier): \(value)\n"
-                }
-            }
-        }
+            case let rom as ORKRangeOfMotionResult:
+                kneeAngle = rom.range
 
-        if let walkStep = result as? ORKWalkStepResult {
-            if let steps = walkStep.numberOfSteps {
-                walkText += "Steps: \(steps)\n"
-            }
-            if let speed = walkStep.averageSpeed {
-                walkText += "Average Speed: \(speed) m/s\n"
-            }
-            if let stride = walkStep.strideLength {
-                walkText += "Stride Length: \(stride) m\n"
+            default:
+                formText += "\(item.identifier): [Unhandled result type]\n"
             }
         }
     }
 
-    // Generate PDFs
+    // Save as PDFs
     _ = createPDF(from: formText, fileName: "FormResults")
     _ = createPDF(from: walkText, fileName: "ShortWalkResults")
+
+    // Save persistent results for specific tasks (using correct identifiers)
+    let context = PersistenceController.shared.viewContext
+    if ["6MWT", "TwoMinuteWalkTest", "shortWalk"].contains(taskIdentifier), let steps = walkSteps {
+        let entity = NSEntityDescription.insertNewObject(forEntityName: "WalkResult", into: context)
+        entity.setValue(UUID(), forKey: "id")
+        entity.setValue(now, forKey: "date")
+        entity.setValue(taskIdentifier, forKey: "taskType")
+        entity.setValue(Int64(steps), forKey: "steps")
+        try? context.save()
+    }
+    if ["lefttKneeROM", "rightKneeROM"].contains(taskIdentifier), let angle = kneeAngle {
+        let entity = NSEntityDescription.insertNewObject(forEntityName: "KneeROMResult", into: context)
+        entity.setValue(UUID(), forKey: "id")
+        entity.setValue(now, forKey: "date")
+        entity.setValue(taskIdentifier, forKey: "taskType")
+        entity.setValue(angle, forKey: "angle")
+        try? context.save()
+    }
 }

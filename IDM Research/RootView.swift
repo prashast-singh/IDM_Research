@@ -20,6 +20,11 @@ struct RootView: View {
                 .tabItem {
                     Label("Results", systemImage: "bubble.left.and.bubble.right.fill")
                 }
+            
+            ScheduleView()
+                .tabItem {
+                    Label("Schedule", systemImage: "calendar.badge.clock")
+                }
         }
     }
 }

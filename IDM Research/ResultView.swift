@@ -10,6 +10,7 @@
 import SwiftUI
 import HealthKit
 import Charts
+import CoreData
 
 enum TimeRange: String, CaseIterable {
     case day = "D"
@@ -161,47 +162,160 @@ class HealthDataViewModel: ObservableObject {
 
 
 struct ResultsView: View {
+    enum ResultsTab { case health, active }
+    @State private var selectedTab: ResultsTab = .health
     @State private var selectedRange: TimeRange = .week
     @StateObject private var viewModel = HealthDataViewModel()
+    @FetchRequest(
+        entity: WalkResult.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \WalkResult.date, ascending: false)]
+    ) var walkResults: FetchedResults<WalkResult>
+    @FetchRequest(
+        entity: KneeROMResult.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \KneeROMResult.date, ascending: false)]
+    ) var kneeResults: FetchedResults<KneeROMResult>
 
     var body: some View {
         NavigationView {
-            VStack {
-                // Time Range Picker
-                Picker("Time Range", selection: $selectedRange) {
-                    ForEach(TimeRange.allCases, id: \.self) { range in
-                        Text(range.rawValue).tag(range)
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    Button(action: { selectedTab = .health }) {
+                        Text("Health Metrics")
+                            .fontWeight(selectedTab == .health ? .bold : .regular)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(selectedTab == .health ? Color.blue.opacity(0.1) : Color.clear)
+                            .foregroundColor(selectedTab == .health ? .blue : .primary)
+                    }
+                    Button(action: { selectedTab = .active }) {
+                        Text("Active Task")
+                            .fontWeight(selectedTab == .active ? .bold : .regular)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(selectedTab == .active ? Color.blue.opacity(0.1) : Color.clear)
+                            .foregroundColor(selectedTab == .active ? .blue : .primary)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
+                .background(Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(.horizontal)
+                .padding(.top)
 
-                // Chart list
-                ScrollView {
-                    LazyVStack(spacing: 16) {
-                        ForEach(viewModel.healthMetrics) { metric in
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("\(metric.name) (\(metric.unit))")
-                                    .font(.headline)
+                Spacer().frame(height: 8) // Move the gap here, after the tab selector
 
-                                if metric.dataPoints.isEmpty {
-                                    Text("No data available")
-                                        .foregroundColor(.gray)
-                                        .font(.subheadline)
-                                } else {
-                                    chartForMetric(metric)
-                                    avgLabel(for: metric)
-                                }
-                            }
-                            .padding()
-                            .background(Color(.systemGroupedBackground))
-                            .cornerRadius(12)
+                if selectedTab == .health {
+                    // Health Metrics Tab
+                    Picker("Time Range", selection: $selectedRange) {
+                        ForEach(TimeRange.allCases, id: \.self) { range in
+                            Text(range.rawValue).tag(range)
                         }
                     }
+                    .pickerStyle(SegmentedPickerStyle())
                     .padding(.horizontal)
+                    .padding(.bottom, 8)
+
+                    ScrollView {
+                        LazyVStack(spacing: 16) {
+                            ForEach(viewModel.healthMetrics) { metric in
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("\(metric.name) (\(metric.unit))")
+                                        .font(.headline)
+
+                                    if metric.dataPoints.isEmpty {
+                                        Text("No data available")
+                                            .foregroundColor(.gray)
+                                            .font(.subheadline)
+                                    } else {
+                                        chartForMetric(metric)
+                                        avgLabel(for: metric)
+                                    }
+                                }
+                                .padding()
+                                .background(Color(.systemGroupedBackground))
+                                .cornerRadius(12)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                    .frame(maxHeight: .infinity)
+                } else {
+                    // Active Task Tab
+                    Picker("Time Range", selection: $selectedRange) {
+                        ForEach([TimeRange.week, .month, .sixMonths, .year], id: \.self) { range in
+                            Text(range.rawValue).tag(range)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
+
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 20) {
+                            ForEach(groupedWalkResults, id: \ .taskType) { group in
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text(group.heading)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .padding(.bottom, 4)
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 16) {
+                                            ForEach(group.results) { walk in
+                                                VStack(alignment: .leading, spacing: 4) {
+                                                    Text("Steps: \(walk.steps)")
+                                                        .font(.headline)
+                                                    Text(formattedDate(walk.date))
+                                                        .font(.caption)
+                                                        .foregroundColor(.secondary)
+                                                }
+                                                .padding()
+                                                .background(Color(.systemGroupedBackground))
+                                                .cornerRadius(12)
+                                                .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding()
+                                .background(Color(.secondarySystemBackground))
+                                .cornerRadius(16)
+                                .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 2)
+                            }
+                            ForEach(groupedKneeResults, id: \ .taskType) { group in
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text(group.heading)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .padding(.bottom, 4)
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 16) {
+                                            ForEach(group.results) { knee in
+                                                VStack(alignment: .leading, spacing: 4) {
+                                                    Text("Angle: \(String(format: "%.1f", knee.angle))°")
+                                                        .font(.headline)
+                                                    Text(formattedDate(knee.date))
+                                                        .font(.caption)
+                                                        .foregroundColor(.secondary)
+                                                }
+                                                .padding()
+                                                .background(Color(.systemGroupedBackground))
+                                                .cornerRadius(12)
+                                                .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding()
+                                .background(Color(.secondarySystemBackground))
+                                .cornerRadius(16)
+                                .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 2)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                    .frame(maxHeight: .infinity)
                 }
             }
-            .navigationTitle("Health Metrics")
+            .navigationTitle(selectedTab == .health ? "Health Metrics" : "Active Task Results")
             .onAppear {
                 viewModel.loadData(for: selectedRange)
             }
@@ -211,48 +325,119 @@ struct ResultsView: View {
         }
     }
 
+    // Filtered results for Active Task tab
+    private var filteredWalkResults: [WalkResult] {
+        filterResults(walkResults.map { $0 })
+    }
+    private var filteredKneeResults: [KneeROMResult] {
+        filterResults(kneeResults.map { $0 })
+    }
+    private func filterResults<T: NSManagedObject>(_ results: [T]) -> [T] {
+        let now = Date()
+        let calendar = Calendar.current
+        let startDate: Date
+        switch selectedRange {
+        case .week:
+            startDate = calendar.date(byAdding: .day, value: -7, to: now) ?? now
+        case .month:
+            startDate = calendar.date(byAdding: .month, value: -1, to: now) ?? now
+        case .sixMonths:
+            startDate = calendar.date(byAdding: .month, value: -6, to: now) ?? now
+        case .year:
+            startDate = calendar.date(byAdding: .year, value: -1, to: now) ?? now
+        default:
+            startDate = calendar.startOfDay(for: now)
+        }
+        return results.filter {
+            if let date = $0.value(forKey: "date") as? Date {
+                return date >= startDate && date <= now
+            }
+            return false
+        }
+    }
+
     private func chartForMetric(_ metric: HealthMetric) -> some View {
-        Chart {
-            ForEach(metric.dataPoints) { point in
-                if selectedRange == .day {
+        let grouped = groupedDataPoints(for: metric).filter { !$0.values.isEmpty }
+        if grouped.isEmpty {
+            return AnyView(
+                Text("No data available")
+                    .frame(height: 200)
+                    .background(Color(.systemGroupedBackground))
+            )
+        }
+        // Flatten all values for the average
+        let allValues = grouped.flatMap { $0.values }
+        let avg = allValues.isEmpty ? 0 : allValues.reduce(0, +) / Double(allValues.count)
+        return AnyView(
+            Chart {
+                ForEach(grouped, id: \.label) { group in
                     BarMark(
-                        x: .value("Time", point.date),
-                        y: .value("Steps", point.value)
+                        x: .value("X", group.label),
+                        y: .value("Value", group.values.reduce(0, +) / Double(group.values.count))
                     )
-                } else {
-                    LineMark(
-                        x: .value("Time", point.date),
-                        y: .value("Value", point.value)
-                    )
-                    .interpolationMethod(.monotone)
+                    .foregroundStyle(Color.accentColor)
+                }
+                RuleMark(
+                    y: .value("Avg", avg)
+                )
+                .foregroundStyle(Color.orange)
+                .lineStyle(StrokeStyle(lineWidth: 2, dash: [4]))
+                .annotation(position: .top, alignment: .trailing) {
+                    Text("Avg: \(String(format: "%.2f", avg)) \(metric.unit)")
+                        .font(.caption)
+                        .foregroundColor(.orange)
                 }
             }
-        }
-        .chartXAxis {
-            AxisMarks(values: .automatic(desiredCount: 5)) { value in
-                AxisGridLine()
-                AxisTick()
-                AxisValueLabel {
-                    if let date = value.as(Date.self) {
-                        Text(shortLabel(for: date))
-                    }
-                }
+            .frame(height: 200)
+        )
+    }
+
+    // Helper to group data points by selected range
+    private func groupedDataPoints(for metric: HealthMetric) -> [(label: String, values: [Double])] {
+        let calendar = Calendar.current
+        var groups: [String: [Double]] = [:]
+        switch selectedRange {
+        case .day:
+            // Group by hour
+            for point in metric.dataPoints {
+                let hour = calendar.component(.hour, from: point.date)
+                let label = String(format: "%02d:00", hour)
+                groups[label, default: []].append(point.value)
+            }
+        case .week, .month:
+            // Group by day
+            for point in metric.dataPoints {
+                let day = calendar.component(.day, from: point.date)
+                let label = String(format: "%02d", day)
+                groups[label, default: []].append(point.value)
+            }
+        case .sixMonths:
+            // Group by 4-week period
+            for point in metric.dataPoints {
+                let weekOfYear = calendar.component(.weekOfYear, from: point.date)
+                let period = (weekOfYear - 1) / 4 + 1
+                let label = "W\(period * 4)"
+                groups[label, default: []].append(point.value)
+            }
+        case .year:
+            // Group by month
+            for point in metric.dataPoints {
+                let month = calendar.component(.month, from: point.date)
+                let label = calendar.shortMonthSymbols[month - 1]
+                groups[label, default: []].append(point.value)
             }
         }
-        .frame(height: 200)
+        // Aggregate (average) for each group
+        return groups
+            .sorted { $0.key < $1.key }
+            .map { (label: $0.key, values: $0.value) }
     }
 
 
-
     private func avgLabel(for metric: HealthMetric) -> some View {
-        let label: String
-        if metric.identifier == .stepCount && selectedRange == .day {
-            let total = metric.dataPoints.reduce(0) { $0 + $1.value }
-            label = "Total: \(Int(total)) \(metric.unit)"
-        } else {
-            label = "Avg: \(String(format: "%.2f", metric.average)) \(metric.unit)"
-        }
-
+        let allValues = metric.dataPoints.map { $0.value }
+        let avg = allValues.isEmpty ? 0 : allValues.reduce(0, +) / Double(allValues.count)
+        let label = "Avg: \(String(format: "%.2f", avg)) \(metric.unit)"
         return Text(label)
             .font(.caption)
             .foregroundColor(.secondary)
@@ -280,6 +465,61 @@ struct ResultsView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
+    }
+
+    private func formattedDate(_ date: Date?) -> String {
+        guard let date = date else { return "" }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+}
+
+// --- Apple Health-Style Card and Chart Components ---
+
+// Remove HealthMetricAppleCard and HealthMetricBarChartViewApple definitions
+// Restore the Health Metrics tab to show all metrics in the same style, with heading, bar chart, and average label
+// Update chartForMetric and avgLabel to ignore zero/null values in calculations
+
+private struct WalkResultGroup {
+    let taskType: String
+    let heading: String
+    let results: [WalkResult]
+}
+private struct KneeResultGroup {
+    let taskType: String
+    let heading: String
+    let results: [KneeROMResult]
+}
+
+private extension ResultsView {
+    var groupedWalkResults: [WalkResultGroup] {
+        let groups = Dictionary(grouping: filteredWalkResults, by: { $0.taskType ?? "Unknown Walk" })
+        return groups.map { (key, value) in
+            WalkResultGroup(taskType: key, heading: walkHeading(for: key), results: value)
+        }.sorted { $0.heading < $1.heading }
+    }
+    var groupedKneeResults: [KneeResultGroup] {
+        let groups = Dictionary(grouping: filteredKneeResults, by: { $0.taskType ?? "Unknown ROM" })
+        return groups.map { (key, value) in
+            KneeResultGroup(taskType: key, heading: kneeHeading(for: key), results: value)
+        }.sorted { $0.heading < $1.heading }
+    }
+    func walkHeading(for key: String) -> String {
+        switch key {
+        case "6MWT": return "6-Minute Walk Test"
+        case "TwoMinuteWalkTest": return "2-Minute Walk Test"
+        case "shortWalk": return "Short Walk"
+        default: return key
+        }
+    }
+    func kneeHeading(for key: String) -> String {
+        switch key {
+        case "rightKneeROM": return "Right Knee ROM"
+        case "lefttKneeROM": return "Left Knee ROM"
+        default: return key
+        }
     }
 }
 

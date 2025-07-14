@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct IDM_ResearchApp: App {
+    @StateObject private var scheduleManager = ScheduleManager()
+    let persistenceController = PersistenceController.shared
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
+                .environmentObject(scheduleManager)
+                .environment(\.managedObjectContext, persistenceController.viewContext)
         }
     }
 }

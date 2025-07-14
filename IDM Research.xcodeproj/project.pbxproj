@@ -7,14 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C60D3802D9D644300450AA7 /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3612D9D633C00450AA7 /* CareKit.framework */; };
-		1C60D3812D9D644300450AA7 /* CareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3612D9D633C00450AA7 /* CareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1C60D3822D9D644300450AA7 /* CareKitFHIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D36A2D9D635000450AA7 /* CareKitFHIR.framework */; };
-		1C60D3832D9D644300450AA7 /* CareKitFHIR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D36A2D9D635000450AA7 /* CareKitFHIR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1C60D3842D9D644300450AA7 /* CareKitStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3732D9D636800450AA7 /* CareKitStore.framework */; };
-		1C60D3852D9D644300450AA7 /* CareKitStore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3732D9D636800450AA7 /* CareKitStore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1C60D3862D9D644300450AA7 /* CareKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D37C2D9D638000450AA7 /* CareKitUI.framework */; };
-		1C60D3872D9D644300450AA7 /* CareKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D37C2D9D638000450AA7 /* CareKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1C15EAAA2DE6E6C600857068 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C15EAA92DE6E6C600857068 /* silence.mp3 */; };
+		1C15EAEF2DFFA71800857068 /* 1-minute-of-silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C15EAEE2DFFA71800857068 /* 1-minute-of-silence.mp3 */; };
 		1C60D3F62D9D76DD00450AA7 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3EB2D9D6B0800450AA7 /* ResearchKit.framework */; };
 		1C60D3F72D9D76DD00450AA7 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3EB2D9D6B0800450AA7 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1C60D3F82D9D76DD00450AA7 /* ResearchKitActiveTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C60D3F12D9D6B0800450AA7 /* ResearchKitActiveTask.framework */; };
@@ -25,34 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1C60D3602D9D633C00450AA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C60D35B2D9D633C00450AA7 /* CareKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8605A5BA1C4F04EC00DD65FF;
-			remoteInfo = CareKit;
-		};
-		1C60D3692D9D635000450AA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C60D3642D9D634F00450AA7 /* CareKitFHIR.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0396EF36233D187800C28FC0;
-			remoteInfo = CareKitFHIR;
-		};
-		1C60D3722D9D636800450AA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C60D36D2D9D636800450AA7 /* CareKitStore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E784B8F82232EED600736CA5;
-			remoteInfo = CareKitStore;
-		};
-		1C60D37B2D9D638000450AA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C60D3762D9D638000450AA7 /* CareKitUI.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5174225B224185290054E97C;
-			remoteInfo = CareKitUI;
-		};
 		1C60D3EA2D9D6B0800450AA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1C60D3892D9D655B00450AA7 /* ResearchKit.xcodeproj */;
@@ -83,12 +49,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1C60D3872D9D644300450AA7 /* CareKitUI.framework in Embed Frameworks */,
 				1C60D3F92D9D76DD00450AA7 /* ResearchKitActiveTask.framework in Embed Frameworks */,
-				1C60D3852D9D644300450AA7 /* CareKitStore.framework in Embed Frameworks */,
-				1C60D3812D9D644300450AA7 /* CareKit.framework in Embed Frameworks */,
 				1C60D3FB2D9D76DD00450AA7 /* ResearchKitUI.framework in Embed Frameworks */,
-				1C60D3832D9D644300450AA7 /* CareKitFHIR.framework in Embed Frameworks */,
 				1C60D3F72D9D76DD00450AA7 /* ResearchKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -97,6 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C15EAA92DE6E6C600857068 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		1C15EAEE2DFFA71800857068 /* 1-minute-of-silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "1-minute-of-silence.mp3"; sourceTree = "<group>"; };
 		1C60D34A2D9D627A00450AA7 /* IDM Research.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IDM Research.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C60D35B2D9D633C00450AA7 /* CareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKit.xcodeproj; path = "CareKit-main/CareKit/CareKit.xcodeproj"; sourceTree = "<group>"; };
 		1C60D3642D9D634F00450AA7 /* CareKitFHIR.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKitFHIR.xcodeproj; path = "CareKit-main/CareKitFHIR/CareKitFHIR.xcodeproj"; sourceTree = "<group>"; };
@@ -122,11 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C60D3F82D9D76DD00450AA7 /* ResearchKitActiveTask.framework in Frameworks */,
-				1C60D3862D9D644300450AA7 /* CareKitUI.framework in Frameworks */,
-				1C60D3842D9D644300450AA7 /* CareKitStore.framework in Frameworks */,
 				1C60D3F62D9D76DD00450AA7 /* ResearchKit.framework in Frameworks */,
-				1C60D3802D9D644300450AA7 /* CareKit.framework in Frameworks */,
-				1C60D3822D9D644300450AA7 /* CareKitFHIR.framework in Frameworks */,
 				1C60D3FA2D9D76DD00450AA7 /* ResearchKitUI.framework in Frameworks */,
 				F300CD790DE3C46806B47929 /* Pods_IDM_Research.framework in Frameworks */,
 			);
@@ -138,6 +98,8 @@
 		1C60D3412D9D627A00450AA7 = {
 			isa = PBXGroup;
 			children = (
+				1C15EAEE2DFFA71800857068 /* 1-minute-of-silence.mp3 */,
+				1C15EAA92DE6E6C600857068 /* silence.mp3 */,
 				1C60D3892D9D655B00450AA7 /* ResearchKit.xcodeproj */,
 				1C60D3762D9D638000450AA7 /* CareKitUI.xcodeproj */,
 				1C60D36D2D9D636800450AA7 /* CareKitStore.xcodeproj */,
@@ -149,6 +111,7 @@
 				4BC0930CA75055A334B6DC5C /* Pods */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		1C60D34B2D9D627A00450AA7 /* Products */ = {
 			isa = PBXGroup;
@@ -161,7 +124,6 @@
 		1C60D35C2D9D633C00450AA7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1C60D3612D9D633C00450AA7 /* CareKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,7 +131,6 @@
 		1C60D3652D9D634F00450AA7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1C60D36A2D9D635000450AA7 /* CareKitFHIR.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,7 +138,6 @@
 		1C60D36E2D9D636800450AA7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1C60D3732D9D636800450AA7 /* CareKitStore.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,7 +145,6 @@
 		1C60D3772D9D638000450AA7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1C60D37C2D9D638000450AA7 /* CareKitUI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -299,34 +258,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		1C60D3612D9D633C00450AA7 /* CareKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CareKit.framework;
-			remoteRef = 1C60D3602D9D633C00450AA7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1C60D36A2D9D635000450AA7 /* CareKitFHIR.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CareKitFHIR.framework;
-			remoteRef = 1C60D3692D9D635000450AA7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1C60D3732D9D636800450AA7 /* CareKitStore.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CareKitStore.framework;
-			remoteRef = 1C60D3722D9D636800450AA7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1C60D37C2D9D638000450AA7 /* CareKitUI.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CareKitUI.framework;
-			remoteRef = 1C60D37B2D9D638000450AA7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		1C60D3EB2D9D6B0800450AA7 /* ResearchKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -355,6 +286,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C15EAAA2DE6E6C600857068 /* silence.mp3 in Resources */,
+				1C15EAEF2DFFA71800857068 /* 1-minute-of-silence.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +456,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BGTaskSchedulerPermittedIdentifiers = "com.ukgm.IDM-Research.processing";
 				CODE_SIGN_ENTITLEMENTS = "IDM Research/IDM Research.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -530,25 +464,39 @@
 				DEVELOPMENT_TEAM = P6RD9VN837;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "IDM-Research-Info.plist";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "needs camera usage";
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = Yes;
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = yes;
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = Yes;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "This app uses your Health data as part of our research study.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app requires access to Health data to contribute to our research study.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This app updates your Health data as part of our research study.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "location permission";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "location permission";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Application need Location permission";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "needs microphone usage";
 				INFOPLIST_KEY_NSMotionUsageDescription = "This app needs access to motion sensors";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "need speech recognition usage permission";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ukgm.IDM-Research";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				UIBackgroundModes = "audio location fetch processing";
+				UIFileSharingEnabled = YES;
 			};
 			name = Debug;
 		};
@@ -558,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BGTaskSchedulerPermittedIdentifiers = "com.ukgm.IDM-Research.processing";
 				CODE_SIGN_ENTITLEMENTS = "IDM Research/IDM Research.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -565,25 +514,39 @@
 				DEVELOPMENT_TEAM = P6RD9VN837;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "IDM-Research-Info.plist";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "needs camera usage";
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = Yes;
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = yes;
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = Yes;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "This app uses your Health data as part of our research study.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app requires access to Health data to contribute to our research study.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This app updates your Health data as part of our research study.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "location permission";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "location permission";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Application need Location permission";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "needs microphone usage";
 				INFOPLIST_KEY_NSMotionUsageDescription = "This app needs access to motion sensors";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "need speech recognition usage permission";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ukgm.IDM-Research";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				UIBackgroundModes = "audio location fetch processing";
+				UIFileSharingEnabled = YES;
 			};
 			name = Release;
 		};
